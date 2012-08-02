@@ -25,6 +25,12 @@ var getSelectedEmberView = function() {
     data.id = view.get('elementId');
     data.type = view.toString().match(/^<(.*):/)[1];
     data.view = view;
+    data.templateName = view.get('templateName')
+    _.each( minispade.modules, function( mod, key ){
+      if (mod.search( 'Ember\.TEMPLATES\\["' + data.templateName ) > 0){
+        data.templateLocation = key;
+      }
+    })
   }
   return data;
 };
