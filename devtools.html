@@ -26,11 +26,21 @@ var getSelectedEmberView = function() {
     data.type = view.toString().match(/^<(.*):/)[1];
     data.view = view;
     data.templateName = view.get('templateName')
+    data.vars = [] 
+   var recurChildViews = function( tview ){
+      if (tview.path){
+        var temp = {}
+        temp[ tview.path ] = tview.pathRoot.getPath(tview.path)
+        data.vars.push(temp);
+      }
+      _.each( tview._childViews, recurChildViews ) 
+    }
     _.each( minispade.modules, function( mod, key ){
       if (mod.search( 'Ember\.TEMPLATES\\["' + data.templateName ) > 0){
         data.templateLocation = key;
       }
     })
+    recurChildViews( view )
   }
   return data;
 };
