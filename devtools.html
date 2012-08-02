@@ -29,7 +29,7 @@ var getSelectedEmberView = function() {
   return data;
 };
 
-chrome.experimental.devtools.panels.elements.createSidebarPane(
+chrome.devtools.panels.elements.createSidebarPane(
   "Ember View (_V)",
   function(sidebar) {
     function updatePanel() {
@@ -37,7 +37,7 @@ chrome.experimental.devtools.panels.elements.createSidebarPane(
     }
 
     updatePanel();
-    chrome.experimental.devtools.panels.elements.onSelectionChanged.addListener(updatePanel);
+    chrome.devtools.panels.elements.onSelectionChanged.addListener(updatePanel);
   }
 );
 </script>
